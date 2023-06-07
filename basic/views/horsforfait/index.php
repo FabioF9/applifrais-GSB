@@ -51,10 +51,17 @@ $this->title = 'Vos frais hors forfait du mois de ' . $mois;
             // 'ID',
             // 'idVisiteur:ntext',
             'Libellé:ntext',
-            'Montant',
+            [
+                'attribute' => 'Montant',
+                'contentOptions' => ['class' => 'text-right'],
+                'value' => function ($model) {
+                    return $model->Montant . ',00';
+                },
+            ],
             'date',
             [
                 'label' => 'Statut du justificatif (à renseigner avant le 10 du mois)',
+                'contentOptions' => ['style' => 'width: 25%;'],
                 'value' => function (Horsforfait $model) {
                     return $model->hasJustificatif() ? 'Justificatif renseigné' : 'Justificatif en attente';
                 }
@@ -62,9 +69,11 @@ $this->title = 'Vos frais hors forfait du mois de ' . $mois;
             //'Justificatif:ntext',
             [
                 'class' => ActionColumn::className(),
+                'contentOptions' => ['style' => 'width: 6%;'],
                 'urlCreator' => function ($action, Horsforfait $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'ID' => $model->ID]);
                  }
+                 
             ],
         ],
     ]); ?>
@@ -75,7 +84,7 @@ $this->title = 'Vos frais hors forfait du mois de ' . $mois;
         ?>
 
         <div class="total-rembourser">
-            <h3>Total hors forfait : <?= $totalRembourser ?> €</h3>
+            <h4>Total hors forfait : <?= $totalRembourser ?> €</h4>
 </div>
     </div>
 

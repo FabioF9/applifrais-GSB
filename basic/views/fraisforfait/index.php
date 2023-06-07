@@ -51,10 +51,17 @@ $this->title = 'Vos frais forfaitisés du mois de ' . $mois ;
             
             'idFraisForfait',
             'quantite',
-            'Montant',
+            [
+                'attribute' => 'Montant',
+                'contentOptions' => ['class' => 'text-right'],
+                'value' => function ($model) {
+                    return $model->Montant . ',00';
+                },
+            ],
             'date',
             [
                 'class' => ActionColumn::className(),
+                'contentOptions' => ['style' => 'width: 6%;'],
                 'urlCreator' => function ($action, Fraisforfait $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'ID' => $model->ID]);
                  }
@@ -68,7 +75,7 @@ $this->title = 'Vos frais forfaitisés du mois de ' . $mois ;
         ?>
 
         <div class="total-rembourser">
-            <h3>Total : <?= $totalRembourser ?> €</h3>
+            <h4>Total des frais : <?= $totalRembourser ?> €</h4>
 </div>
     </div>
     

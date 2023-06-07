@@ -12,7 +12,7 @@ $this->title = 'Login';
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?= Html::img('@web/images/logo1.png', ['alt' => 'My logo','class' => 'loginlogo']) ?>
+    <?= Html::img('@web/images/logo-gsb.png', ['alt' => 'My logo','class' => 'loginlogo']) ?>
     
 
     <?php $form = ActiveForm::begin([

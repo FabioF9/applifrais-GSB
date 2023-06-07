@@ -1,5 +1,7 @@
 <?php
 
+use yii\bootstrap5\Html;
+
 /** @var yii\web\View $this */
 
 $this->title = 'GSB Applifrais';
@@ -12,6 +14,8 @@ $isUserLoggedIn = Yii::$app->user->isGuest;
         <h1 class="display-4">Bienvenue !</h1>
 
         <p class="lead">Sur l'application Web de gestion de frais du laboratoire GSB.</p>
+
+        <?= Html::img('@web/images/logo-gsb.png', ['alt' => 'My logo','class' => 'loginlogo']) ?>
 
         <?php if ($isUserLoggedIn): ?>
             <!-- Afficher le bouton de connexion uniquement si l'utilisateur n'est pas connecté -->

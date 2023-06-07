@@ -21,6 +21,7 @@ main > .container {
 .loginlogo{
     width: 300px;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .loginformfield {
@@ -65,6 +66,10 @@ a.desc:after {
     border-left: 3px solid #eed3d7;
     padding: 10px 20px;
     margin: 0 0 15px 0;
+}
+
+.text-right {
+    text-align: right;
 }
 
 /* align the logout "link" (button in form) of the navbar */

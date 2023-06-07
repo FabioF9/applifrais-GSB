@@ -23,7 +23,13 @@ $this->title = 'Historique des frais hors forfait';
         'columns' => [
             
             'Libellé:ntext',
-            'Montant',
+            [
+                'attribute' => 'Montant',
+                'contentOptions' => ['class' => 'text-right'],
+                'value' => function ($model) {
+                    return $model->Montant . ',00';
+                },
+            ],
             'date',
             
             //'Justificatif:ntext',
@@ -45,7 +51,7 @@ $this->title = 'Historique des frais hors forfait';
         ?>
 
         <div class="total-rembourser">
-            <h3>Total hors forfait : <?= $totalRembourser ?> €</h3>
+            <h4>Total hors forfait : <?= $totalRembourser ?> €</h4>
 </div>
 <br/>
 <h1><?= Html::encode("Historique des frais forfaitisés") ?></h1>
@@ -55,7 +61,13 @@ $this->title = 'Historique des frais hors forfait';
         'columns' => [
             'idFraisForfait',
             'quantite',
-            'Montant',
+            [
+                'attribute' => 'Montant',
+                'contentOptions' => ['class' => 'text-right'],
+                'value' => function ($model) {
+                    return $model->Montant . ',00';
+                },
+            ],
             'date',
             [
                 'class' => ActionColumn::className(),
@@ -74,7 +86,7 @@ $this->title = 'Historique des frais hors forfait';
         ?>
 
         <div class="total-rembourser">
-            <h3>Total : <?= $totalRembourser ?> €</h3>
+            <h4>Total : <?= $totalRembourser ?> €</h4>
 </div>
 
 

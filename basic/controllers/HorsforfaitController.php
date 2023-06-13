@@ -53,6 +53,7 @@ class HorsforfaitController extends Controller
             ->where(['idVisiteur' => $userId])
             // ->andWhere(['IN', 'MONTH(date)', [date('m'), date('m', strtotime('-1 month'))]])
             ->andWhere(['MONTH(date)' => date('m')])
+            ->andWhere(['YEAR(date)' => date('Y')])
             ->orderBy(['date' => SORT_ASC,]),
             /*
             'pagination' => [

@@ -34,7 +34,7 @@ $this->title = 'Vos frais hors forfait du mois de ' . $mois;
 <div class="horsforfait-index">
 
     <h1><?= Html::encode($this->title) ?>
-        <?= Html::a('<i class="fas fa-print"></i>', '#', ['class' => 'btn btn-primary', 'id' => 'print-button']) ?>
+        <?= Html::a('<i class="fas fa-print"></i>', '', ['class' => 'btn btn-primary', 'id' => 'print-button']) ?>
     </h1>
 
     <p>

@@ -18,6 +18,14 @@ main > .container {
     font-style: italic;
 }
 
+.blue{
+    background-color: #20c997;
+}
+
+.padding{
+    padding: 0.5em;
+}
+
 .loginlogo{
     width: 300px;
     margin-bottom: 5px;

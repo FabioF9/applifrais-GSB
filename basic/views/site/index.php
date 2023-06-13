@@ -19,7 +19,7 @@ $isUserLoggedIn = Yii::$app->user->isGuest;
 
         <?php if ($isUserLoggedIn): ?>
             <!-- Afficher le bouton de connexion uniquement si l'utilisateur n'est pas connecté -->
-            <p><a class="btn btn-lg btn-success" href="/index.php?r=site%2Flogin">Se connecter</a></p>
+            <p><a class="btn btn-lg btn-success" href="/site/login">Se connecter</a></p>
         <?php endif; ?>
     </div>
     </div>

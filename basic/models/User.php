@@ -72,9 +72,13 @@ class User extends Visiteur implements IdentityInterface
 
 
     
-    public function validatePassword($password)
+     public function validatePassword($password)
+     {
+         return password_verify($password, $this->mdp);
+     }
+     
+     public function hashPassword($password)
     {
-        // return $this->mdp === ($password);
-        return $this->mdp === md5($password);
+        return password_hash($password, PASSWORD_DEFAULT);
     }
 }

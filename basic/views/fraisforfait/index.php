@@ -35,7 +35,7 @@ $this->title = 'Vos frais forfaitisés du mois de ' . $mois ;
 
     <h1><?= Html::encode($this->title) ?>
     
-<?= Html::a('<i class="fas fa-print"></i>', '#', ['class' => 'btn btn-primary', 'id' => 'print-button']) ?>
+<?= Html::a('<i class="fas fa-print"></i>', '', ['class' => 'btn btn-primary', 'id' => 'print-button']) ?>
 </h1>
     
 

@@ -38,54 +38,74 @@ class HistoriquehfController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($date = null)
     {
-        $currentYear = date('Y');
-        $previousYear = date('Y', strtotime('-1 year'));
-        
         if (!Yii::$app->user->isGuest) {
             $userId = Yii::$app->user->id;
         }
-        $dataProvider1 = new ActiveDataProvider([
-            'query' => Historiquehf::find()
-            ->where(['idVisiteur' => $userId])
-            ->andWhere(['BETWEEN', 'YEAR(date)', $previousYear, $currentYear])
-            ->orderBy(['date' => SORT_ASC]),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'ID' => SORT_DESC,
-                ]
-            ],
-            */
-        ]);
-
-        $dataProvider2 = new ActiveDataProvider([
-            'query' => Historiqueff::find()
-            ->where(['idVisiteur' => $userId])
-            ->andWhere(['BETWEEN', 'YEAR(date)', $previousYear, $currentYear])
-            ->orderBy(['date' => SORT_ASC,]),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'ID' => SORT_DESC,
-                ]
-            ],
-            */
-        ]);
-
         
+        $query1 = Historiquehf::find()
+            ->where(['idVisiteur' => $userId])
+            ->orderBy(['date' => SORT_ASC]);
+    
+        $query2 = Historiqueff::find()
+            ->where(['idVisiteur' => $userId])
+            ->orderBy(['date' => SORT_ASC]);
+
+        $query3 = Historiquehf::find()
+        ->select(['date'])
+        ->where(['idVisiteur' => $userId]);
+
+        $query4 = Historiqueff::find()
+                    ->select(['date'])
+                    ->where(['idVisiteur' => $userId]);
+
+        $unionQuery = (new \yii\db\Query())
+            ->select(['date'])
+            ->from(['union' => $query3->union($query4)])
+            ->orderBy(['date' => SORT_ASC]);
+    
+        if ($date) {
+            $startDateTime = strtotime($date);
+            // $endDateTime = strtotime('+1 month', $startDateTime);
+            
+            $startYear = date('Y', $startDateTime);
+            $startMonth = date('m', $startDateTime);
+            
+            // $endYear = date('Y', $endDateTime);
+            // $endMonth = date('m', $endDateTime);
+            
+            // $query1->andWhere(['between', 'YEAR(date)', $startYear, $endYear])
+            //     ->andWhere(['between', 'MONTH(date)', $startMonth, $endMonth]);
+                
+            // $query2->andWhere(['between', 'YEAR(date)', $startYear, $endYear])
+            //     ->andWhere(['between', 'MONTH(date)', $startMonth, $endMonth]);
+            $query1->where(['YEAR(date)'=>$startYear])
+                   ->andWhere(['MONTH(date)'=>$startMonth]);
+            $query2->where(['YEAR(date)'=>$startYear])
+            ->andWhere(['MONTH(date)'=>$startMonth]);
+        }
+    
+        $dataProvider1 = new ActiveDataProvider([
+            'query' => $query1,
+        ]);
+    
+        $dataProvider2 = new ActiveDataProvider([
+            'query' => $query2,
+        ]);
+
+        $dataProvider3 = new ActiveDataProvider([
+            'query' => $unionQuery,
+        ]);
+    
+    
         return $this->render('index', [
             'dataProvider1' => $dataProvider1,
             'dataProvider2' => $dataProvider2,
+            'dataProvider3' => $dataProvider3,
         ]);
     }
+    
 
     /**
      * Displays a single Historiquehf model.

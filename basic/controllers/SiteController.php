@@ -3,12 +3,14 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
+use app\models\User;
 use yii\web\Response;
-use yii\filters\VerbFilter;
+use yii\base\Security;
+use yii\web\Controller;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 class SiteController extends Controller
 {

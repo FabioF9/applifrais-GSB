@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /** @var app\models\Historiqueff $model */
 
 // $this->title = $model->ID;
-$this->params['breadcrumbs'][] = ['label' => 'Historiqueffs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $model->ID;
+// $this->params['breadcrumbs'][] = ['label' => 'Historiqueffs', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $model->ID;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="historiqueff-view">

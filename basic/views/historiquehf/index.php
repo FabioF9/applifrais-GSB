@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\helpers\Url;
@@ -92,14 +93,12 @@ $this->title = 'Historique de vos frais';
     </div>
 
     <br/>
-    <div class="border border-info rounded-4">
-        <div class="padding">
-            <?php if ($selectedDate !== null) : ?>
-                
-                
-                
+    
+    <?php if ($selectedDate !== null) : ?>
+        <div class="border border-info rounded-4">
+            <div class="padding">
                 <h2>Frais hors forfait de <?= Html::encode($dateFR) ?></h2>
-            
+
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider1,
                     'columns' => [
@@ -127,77 +126,75 @@ $this->title = 'Historique de vos frais';
                     ],
                     'summary' => false,
                 ]); ?>
-            <?php
-            // Calcul du total à rembourser
-            $totalRembourser = $dataProvider1->query->sum('Montant');
-            ?>
-
-            <div class="total-rembourser">
-                <?php if ($totalRembourser==0):?>
-                    <h4>Total hors forfait: 0€</h4>
-                <?php else :?>
-                <h4>Total hors forfait : <?= $totalRembourser ?> €</h4>
-            </div>
-        </div>
-
-
-
-    <?php endif; ?>
-    </div>
-        
-        
-         <br/>
-        <div class="border border-info rounded-4">
-                <div class="padding">
-                <h2>Frais forfaitisés de <?= Html::encode($dateFR) ?></h2>
-
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider2,
-                    'columns' => [
-                        [
-                            'attribute' => 'idFraisForfait',
-                            'contentOptions' => ['style' => 'width: 40%;'],
-                        ],
-                        [
-                            'attribute' => 'quantite',
-                            'contentOptions' => ['style' => 'width: 10%;'],
-                        ],
-                        [
-                            'attribute' => 'Montant',
-                            'contentOptions' => ['style' => 'width: 10%;'],
-                            'contentOptions' => ['class' => 'text-right'],
-                            'value' => function ($model) {
-                                return $model->Montant . ',00';
-                            },
-                        ],
-                        'date',
-                        [
-                            'class' => ActionColumn::className(),
-                            'contentOptions' => ['style' => 'width: 5%;'],
-                            'template' => '{view}',
-                            'urlCreator' => function ($action, Historiqueff $model, $key, $index, $column) {
-                                return Url::toRoute([$action, 'ID' => $model->ID]);
-                            }
-                        ],
-                    ],
-                    'summary' => false,
-                ]); ?>
 
                 <?php
-                // Calcul du total à rembourser
-                $totalRembourser = $dataProvider2->query->sum('Montant');
+                $totalRembourser = $dataProvider1->query->sum('Montant');
                 ?>
 
                 <div class="total-rembourser">
-                    <?php if ($totalRembourser==0):?>
-                        <h4>Total des frais forfaitisés : 0€</h4>
-                    <?php else :?>
-                    <h4>Total des frais forfaitisés : <?= $totalRembourser ?> €</h4>
+                    <?php if ($totalRembourser == 0) : ?>
+                        <h4>Total hors forfait: 0€</h4>
+                    <?php else : ?>
+                        <h4>Total hors forfait : <?= $totalRembourser ?> €</h4>
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
-            <?php endif; ?>
-
             </div>
         </div>
+    <?php endif; ?>
+
+    <br/>
+
+    <?php if ($selectedDate !== null) : ?>
+
+    <div class="border border-info rounded-4">
+        <div class="padding">
+            <h2>Frais forfaitisés de <?= Html::encode($dateFR) ?></h2>
+
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider2,
+                'columns' => [
+                    [
+                        'attribute' => 'idFraisForfait',
+                        'contentOptions' => ['style' => 'width: 40%;'],
+                    ],
+                    [
+                        'attribute' => 'quantite',
+                        'contentOptions' => ['style' => 'width: 10%;'],
+                    ],
+                    [
+                        'attribute' => 'Montant',
+                        'contentOptions' => ['style' => 'width: 10%;'],
+                        'contentOptions' => ['class' => 'text-right'],
+                        'value' => function ($model) {
+                            return $model->Montant . ',00';
+                        },
+                    ],
+                    'date',
+                    [
+                        'class' => ActionColumn::className(),
+                        'contentOptions' => ['style' => 'width: 5%;'],
+                        'template' => '{view}',
+                        'urlCreator' => function ($action, Historiqueff $model, $key, $index, $column) {
+                            return Url::toRoute(['historiqueff/view', 'ID' => $model->ID]);
+                        }
+                    ],
+                ],
+                'summary' => false,
+            ]); ?>
+
+            <?php
+            $totalRembourser = $dataProvider2->query->sum('Montant');
+            ?>
+
+            <div class="total-rembourser">
+                <?php if ($totalRembourser == 0) : ?>
+                    <h4>Total des frais forfaitisés : 0€</h4>
+                <?php else : ?>
+                    <h4>Total des frais forfaitisés : <?= $totalRembourser ?> €</h4>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 
 </div>

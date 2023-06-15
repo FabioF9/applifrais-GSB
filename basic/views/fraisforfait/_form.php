@@ -1,9 +1,10 @@
 <?php
 
-use app\models\Baremeforfait;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use app\models\Baremeforfait;
+use app\models\Fraiskilometrique;
 
 /** @var yii\web\View $this */
 /** @var app\models\Fraisforfait $model */
@@ -13,12 +14,20 @@ use yii\helpers\ArrayHelper;
 <div class="fraisforfait-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'idFraisForfait')->dropDownList(
-        ArrayHelper::map(Baremeforfait::find()->all(), 'id', function($model) {
+    <?php     
+    $idfkm = Yii::$app->user->identity->visiteur->idfkm;
+    $fraiskilometrique = Fraiskilometrique::findOne($idfkm);
+    $coeff = ($fraiskilometrique !== null) ? $fraiskilometrique->Coeff : null;
+    ?>
+<?= $form->field($model, 'idFraisForfait')->dropDownList(
+    ArrayHelper::map(Baremeforfait::find()->all(), 'id', function($model) use ($coeff) {
+        if ($model->id == 'KM' && isset($coeff)) {
+            return $model->libelle . ' (' . $coeff . ')';
+        } else {
             return $model->libelle . ' (' . $model->montant . ')';
-        })
-    ) ?>
+        }
+    })
+) ?>
 
     <?= $form->field($model, 'quantite')->textInput(['type' => 'number', 'onchange' => 'calculateTotal()']) ?>
 

@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 
 // $this->title = $model->ID;
 $this->params['breadcrumbs'][] = ['label' => 'Horsforfaits', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $model->ID;
+// $this->params['breadcrumbs'][] = $model->ID;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="horsforfait-view">

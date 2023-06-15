@@ -60,6 +60,7 @@ class Visiteur extends \yii\db\ActiveRecord
             'ville' => 'Ville',
             'dateEmbauche' => 'Date Embauche',
             'idfkm' => 'idfkm',
+            'user_type'=>'type',
         ];
     }
 }

@@ -25,9 +25,7 @@ class m230608_084619_update_password extends Migration
      */
     public function safeDown()
     {
-        // Il est recommandé de ne pas pouvoir annuler cette migration,
-        // car elle sécurise les mots de passe des utilisateurs.
-        // Si nécessaire, vous pouvez restaurer les mots de passe non hachés à partir d'une sauvegarde.
+        
     }
 
     /**

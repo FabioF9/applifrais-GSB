@@ -20,6 +20,7 @@ $this->title = 'Historique de vos frais';
     <h4>Veuillez sélectionner une date :</h4>
 
     <?php
+        $totalGlobalRembourser = 0;
         $dates = []; // Tableau pour stocker les dates uniques
         foreach ($dataProvider3->models as $model) {
             if (is_array($model) && isset($model['date'])) {
@@ -129,6 +130,7 @@ $this->title = 'Historique de vos frais';
 
                 <?php
                 $totalRembourser = $dataProvider1->query->sum('Montant');
+                $totalGlobalRembourser += $totalRembourser;
                 ?>
 
                 <div class="total-rembourser">
@@ -184,6 +186,7 @@ $this->title = 'Historique de vos frais';
 
             <?php
             $totalRembourser = $dataProvider2->query->sum('Montant');
+            $totalGlobalRembourser += $totalRembourser;
             ?>
 
             <div class="total-rembourser">
@@ -195,6 +198,13 @@ $this->title = 'Historique de vos frais';
             </div>
         </div>
     </div>
+    <br/>
+
+    <div class="total-global-rembourser">
+        <h4>Total global à rembourser : <?= $totalGlobalRembourser ?> €</h4>
+    </div>
     <?php endif; ?>
+
+    
 
 </div>

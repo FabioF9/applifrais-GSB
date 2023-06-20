@@ -59,6 +59,8 @@ class Visiteur extends \yii\db\ActiveRecord
             'cp' => 'Cp',
             'ville' => 'Ville',
             'dateEmbauche' => 'Date Embauche',
+            'idfkm' => 'idfkm',
+            'user_type'=>'type',
         ];
     }
 }

@@ -39,6 +39,11 @@ class User extends Visiteur implements IdentityInterface
         return User::findOne(['username' => $username]);
     }
 
+    public function getVisiteur()
+    {
+        return $this->hasOne(Visiteur::class, ['id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      */

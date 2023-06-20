@@ -55,7 +55,7 @@ $this->title = 'Vos frais hors forfait du mois de ' . $mois;
                 'attribute' => 'Montant',
                 'contentOptions' => ['class' => 'text-right'],
                 'value' => function ($model) {
-                    return $model->Montant . ',00';
+                    return $model->Montant;
                 },
             ],
             'date',

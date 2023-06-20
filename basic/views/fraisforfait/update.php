@@ -8,8 +8,8 @@ use yii\helpers\Html;
 // $this->title = 'Update Fraisforfait: ' . $model->ID;
 $this->title = 'Modification du frais';
 $this->params['breadcrumbs'][] = ['label' => 'Fraisforfaits', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->ID, 'url' => ['view', 'ID' => $model->ID]];
-$this->params['breadcrumbs'][] = 'Update';
+// $this->params['breadcrumbs'][] = ['label' => $model->ID, 'url' => ['view', 'ID' => $model->ID]];
+// $this->params['breadcrumbs'][] = 'Update';
 $message = Yii::$app->session->getFlash('message');
 if ($message !== null) {
     echo Html::tag('div', $message, ['class' => 'alert alert-success']);

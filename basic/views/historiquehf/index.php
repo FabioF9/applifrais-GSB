@@ -112,7 +112,7 @@ $this->title = 'Historique de vos frais';
                             'contentOptions' => ['style' => 'width: 10%;'],
                             'contentOptions' => ['class' => 'text-right'],
                             'value' => function ($model) {
-                                return $model->Montant . ',00';
+                                return $model->Montant;
                             },
                         ],
                         'date',
@@ -168,7 +168,7 @@ $this->title = 'Historique de vos frais';
                         'contentOptions' => ['style' => 'width: 10%;'],
                         'contentOptions' => ['class' => 'text-right'],
                         'value' => function ($model) {
-                            return $model->Montant . ',00';
+                            return $model->Montant;
                         },
                     ],
                     'date',

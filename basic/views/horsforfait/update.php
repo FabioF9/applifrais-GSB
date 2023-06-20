@@ -8,8 +8,8 @@ use yii\helpers\Html;
 // $this->title = 'Update Horsforfait: ' . $model->ID;
 $this->title = 'Modification du frais';
 $this->params['breadcrumbs'][] = ['label' => 'Horsforfaits', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->ID, 'url' => ['view', 'ID' => $model->ID]];
-$this->params['breadcrumbs'][] = 'Update';
+// $this->params['breadcrumbs'][] = ['label' => $model->ID, 'url' => ['view', 'ID' => $model->ID]];
+// $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="horsforfait-update">
 

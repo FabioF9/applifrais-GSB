@@ -6,10 +6,13 @@
 
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\web\View;
 
 $this->title = 'Login';
+
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="center">
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
     <?= Html::img('@web/images/logo-gsb.png', ['alt' => 'My logo','class' => 'loginlogo']) ?>
@@ -46,4 +49,5 @@ $this->title = 'Login';
         You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
         To modify the username/password, please check out the code <code>app\models\User::$users</code>.
     </div> -->
+</div>
 </div>

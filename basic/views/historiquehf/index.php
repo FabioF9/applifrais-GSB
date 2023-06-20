@@ -20,17 +20,18 @@ $this->title = 'Historique de vos frais';
     <h4>Veuillez sélectionner une date :</h4>
 
     <?php
+        $oneYearAgo = date('Y-m-d', strtotime('-1 year'));
         $totalGlobalRembourser = 0;
         $dates = []; // Tableau pour stocker les dates uniques
         foreach ($dataProvider3->models as $model) {
             if (is_array($model) && isset($model['date'])) {
                 $date = date('F Y', strtotime($model['date']));
-                if (!in_array($date, $dates)) {
+                if (!in_array($date, $dates) && $model['date'] >= $oneYearAgo) {
                     $dates[] = $date;
                 }
             } elseif (is_object($model) && isset($model->date)) {
                 $date = date('F Y', strtotime($model->date));
-                if (!in_array($date, $dates)) {
+                if (!in_array($date, $dates) && $model->date >= $oneYearAgo) {
                     $dates[] = $date;
                 }
             }

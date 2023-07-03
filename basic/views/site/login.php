@@ -11,6 +11,7 @@ use yii\web\View;
 $this->title = 'Login';
 
 // $this->params['breadcrumbs'][] = $this->title;
+// $this->registerCssFile('@web/css/style.css');
 ?>
 <div class="center">
 <div class="site-login">

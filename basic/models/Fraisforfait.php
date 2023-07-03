@@ -59,6 +59,7 @@ class Fraisforfait extends \yii\db\ActiveRecord
         $existing = Fraisforfait::findOne([
             'idFraisForfait' => $this->idFraisForfait,
             'date' => $this->date,
+            'idVisiteur' => $this->idVisiteur,
         ]);
 
         if ($existing !== null) {

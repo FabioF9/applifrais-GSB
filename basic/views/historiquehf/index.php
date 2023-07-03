@@ -13,7 +13,7 @@ use app\models\Historiquehf;
 
 $this->title = 'Historique de vos frais';
 ?>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <div class="historiquehf-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -90,16 +90,19 @@ $this->title = 'Historique de vos frais';
                 $options = ['class' => 'btn btn-outline-primary'];
             }
             ?>
-            <?= Html::a($dateEnFrancais, $url, $options) ?>
+            <?= Html::a($dateEnFrancais, $url, $options)  ?> 
         <?php endforeach; ?>
+        <?= Html::a('<i class="fas fa-print"></i>', '', ['class' => 'btn btn-primary', 'id' => 'print-button']) ?>
     </div>
 
     <br/>
     
     <?php if ($selectedDate !== null) : ?>
+        <div id="print-content">
         <div class="border border-info rounded-4">
             <div class="padding">
                 <h2>Frais hors forfait de <?= Html::encode($dateFR) ?></h2>
+                
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider1,
@@ -202,10 +205,36 @@ $this->title = 'Historique de vos frais';
     <br/>
 
     <div class="total-global-rembourser">
-        <h4>Total global à rembourser : <?= $totalGlobalRembourser ?> €</h4>
+        <h4>Total global : <?= $totalGlobalRembourser ?> €</h4>
     </div>
     <?php endif; ?>
 
     
 
 </div>
+</div>
+
+
+<script>
+    var originalContents = null; // Ajoutez cette variable en dehors de l'événement de clic
+
+    document.getElementById('print-button').addEventListener('click', function() {
+        var printContents = document.getElementById('print-content').innerHTML;
+
+        if (originalContents === null) {
+            originalContents = document.body.innerHTML; // Enregistre le contenu original uniquement s'il n'est pas déjà enregistré
+        }
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+    });
+
+    // Ajoutez cet écouteur d'événement pour réinitialiser le contenu original lors de l'annulation de l'impression
+    window.addEventListener('afterprint', function() {
+        if (originalContents !== null) {
+            document.body.innerHTML = originalContents;
+            originalContents = null; // Réinitialise la variable pour la prochaine impression
+        }
+    });
+</script>

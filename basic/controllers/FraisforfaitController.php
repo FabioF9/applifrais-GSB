@@ -87,6 +87,9 @@ class FraisforfaitController extends Controller
      */
     public function actionCreate()
     {
+        if(!Yii::$app->user->isGuest) {
+            $userId = Yii::$app->user->id;
+        }
         $model = new Fraisforfait();
         $model->idVisiteur = Yii::$app->user->id;
         $model->date = date('Y-m-d');
@@ -102,10 +105,14 @@ class FraisforfaitController extends Controller
         } else {
             $model->loadDefaultValues();
         }
+        Yii::$app->db->createCommand("CALL create_fichefrais(:idVisiteur)")
+        ->bindValue(':idVisiteur', $userId)
+        ->execute();
 
         return $this->render('create', [
             'model' => $model,
         ]);
+        
     }
 
     /**

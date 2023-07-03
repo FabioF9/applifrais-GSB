@@ -93,6 +93,9 @@ class HorsforfaitController extends Controller
 
 public function actionCreate()
 {
+    if(!Yii::$app->user->isGuest) {
+        $userId = Yii::$app->user->id;
+    }
     $currentDate = date('Y-m-d');
     $isLastDayOfMonth = (date('m', strtotime($currentDate)) != date('m', strtotime($currentDate . ' +1 day')));
     $model = new Horsforfait();
@@ -122,6 +125,9 @@ public function actionCreate()
         } else {
             $model->loadDefaultValues();
         }
+        Yii::$app->db->createCommand("CALL create_fichefrais(:idVisiteur)")
+        ->bindValue(':idVisiteur', $userId)
+        ->execute();
 
         return $this->render('create', [
             'model' => $model,

@@ -73,6 +73,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->view->registerCssFile('@web/css/style.css');
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

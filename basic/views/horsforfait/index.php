@@ -92,25 +92,25 @@ $this->title = 'Vos frais hors forfait du mois de ' . $mois;
 </div>
 
 <script>
-var originalContents = null; // Ajoutez cette variable en dehors de l'événement de clic
+    var originalContents = null; // Ajoutez cette variable en dehors de l'événement de clic
 
-document.getElementById('print-button').addEventListener('click', function() {
-    var printContents = document.getElementById('print-content').innerHTML;
+    document.getElementById('print-button').addEventListener('click', function() {
+        var printContents = document.getElementById('print-content').innerHTML;
 
-    if (originalContents === null) {
-        originalContents = document.body.innerHTML; // Enregistre le contenu original uniquement s'il n'est pas déjà enregistré
-    }
+        if (originalContents === null) {
+            originalContents = document.body.innerHTML; // Enregistre le contenu original uniquement s'il n'est pas déjà enregistré
+        }
 
-    document.body.innerHTML = printContents;
+        document.body.innerHTML = printContents;
 
-    window.print();
-});
+        window.print();
+    });
 
-// Ajoutez cet écouteur d'événement pour réinitialiser le contenu original lors de l'annulation de l'impression
-window.addEventListener('afterprint', function() {
-    if (originalContents !== null) {
-        document.body.innerHTML = originalContents;
-        originalContents = null; // Réinitialise la variable pour la prochaine impression
-    }
-});
+    // Ajoutez cet écouteur d'événement pour réinitialiser le contenu original lors de l'annulation de l'impression
+    window.addEventListener('afterprint', function() {
+        if (originalContents !== null) {
+            document.body.innerHTML = originalContents;
+            originalContents = null; // Réinitialise la variable pour la prochaine impression
+        }
+    });
 </script>

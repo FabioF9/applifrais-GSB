@@ -18,7 +18,7 @@ $this->title = 'Login';
     <h1><?= Html::encode($this->title) ?></h1>
     <?= Html::img('@web/images/logo-gsb.png', ['alt' => 'My logo','class' => 'loginlogo']) ?>
     
-
+    
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
         'layout' => 'horizontal',

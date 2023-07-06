@@ -5,25 +5,22 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "horsforfait".
+ * This is the model class for table "cartegrise".
  *
  * @property int $ID
+ * @property string|null $Chemin
  * @property string $idVisiteur
- * @property string $date
- * @property string $Libellé
- * @property int $Montant
- * @property string $Justificatif
  *
  * @property Visiteur $idVisiteur0
  */
-class Historiquehf extends \yii\db\ActiveRecord
+class Cartegrise extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'horsforfait';
+        return 'cartegrise';
     }
 
     /**
@@ -32,10 +29,9 @@ class Historiquehf extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idVisiteur', 'date', 'Libellé', 'Montant', 'Justificatif'], 'required'],
-            [['date'], 'safe'],
-            [['Libellé', 'Justificatif'], 'string'],
-            [['Montant'], 'number'],
+            [['Chemin'], 'string'],
+            [['Chemin'], 'file', 'extensions' => ['png', 'jpeg', 'jpg', 'pdf']],
+            [['idVisiteur'], 'required'],
             [['idVisiteur'], 'string', 'max' => 4],
             [['idVisiteur'], 'exist', 'skipOnError' => true, 'targetClass' => Visiteur::class, 'targetAttribute' => ['idVisiteur' => 'id']],
         ];
@@ -48,13 +44,12 @@ class Historiquehf extends \yii\db\ActiveRecord
     {
         return [
             'ID' => 'ID',
+            'Chemin' => 'Chemin',
             'idVisiteur' => 'Id Visiteur',
-            'date' => 'Date',
-            'Libellé' => 'Libellé',
-            'Montant' => 'Montant (en €)',
-            'Justificatif' => 'Justificatif',
         ];
     }
+
+    
 
     /**
      * Gets query for [[IdVisiteur0]].

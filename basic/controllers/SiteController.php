@@ -8,6 +8,8 @@ use yii\web\Response;
 use yii\base\Security;
 use yii\web\Controller;
 use app\models\LoginForm;
+use yii\web\UploadedFile;
+use app\models\Cartegrise;
 use app\models\ContactForm;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -62,10 +64,56 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
-        return $this->render('index');
+{
+    $userId = Yii::$app->user->id;
+    $model = Cartegrise::findOne(['idVisiteur' => $userId]);
+
+    if (!$model) {
+        $model = new Cartegrise();
+        $model->idVisiteur = $userId;
     }
 
+    if ($this->request->isPost) {
+        $model->Chemin = UploadedFile::getInstance($model, 'Chemin');
+
+        if ($model->Chemin) {
+            // Chemin du fichier existant avant la modification
+            $oldFilePath = $model->Chemin;
+        
+            // Générer un nouveau nom de fichier unique
+            $fileName = uniqid() . '.' . $model->Chemin->extension;
+            $newFilePath = 'uploads/' . $fileName;
+        
+            // Vérifier si le fichier existe déjà
+            while (file_exists($newFilePath)) {
+                $fileName = uniqid() . '.' . $model->Chemin->extension;
+                $newFilePath = 'uploads/' . $fileName;
+            }
+        
+            // Déplacer le nouveau fichier téléchargé vers le dossier d'uploads
+            if ($model->Chemin->saveAs($newFilePath)) {
+                // Mettre à jour le chemin du fichier dans le modèle
+                $model->Chemin = $newFilePath;
+        
+                // Supprimer l'ancien fichier s'il existe
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            } else {
+                // Erreur lors de l'enregistrement du fichier
+                // Gérer l'erreur appropriée
+            }
+        }
+        
+        $model->save();
+    }        
+    return $this->render('index', [
+        'model' => $model,
+    ]);
+}
+
+
+    
     /**
      * Login action.
      *

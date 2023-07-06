@@ -5,25 +5,24 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "horsforfait".
+ * This is the model class for table "fichefrais".
  *
  * @property int $ID
+ * @property string $Date
  * @property string $idVisiteur
- * @property string $date
- * @property string $Libellé
- * @property int $Montant
- * @property string $Justificatif
+ * @property string|null $idEtat
  *
+ * @property Etat $idEtat0
  * @property Visiteur $idVisiteur0
  */
-class Historiquehf extends \yii\db\ActiveRecord
+class Fichefrais extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'horsforfait';
+        return 'fichefrais';
     }
 
     /**
@@ -32,12 +31,12 @@ class Historiquehf extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idVisiteur', 'date', 'Libellé', 'Montant', 'Justificatif'], 'required'],
-            [['date'], 'safe'],
-            [['Libellé', 'Justificatif'], 'string'],
-            [['Montant'], 'number'],
+            [['Date', 'idVisiteur'], 'required'],
+            [['Date'], 'safe'],
             [['idVisiteur'], 'string', 'max' => 4],
+            [['idEtat'], 'string', 'max' => 2],
             [['idVisiteur'], 'exist', 'skipOnError' => true, 'targetClass' => Visiteur::class, 'targetAttribute' => ['idVisiteur' => 'id']],
+            [['idEtat'], 'exist', 'skipOnError' => true, 'targetClass' => Etat::class, 'targetAttribute' => ['idEtat' => 'id']],
         ];
     }
 
@@ -48,12 +47,20 @@ class Historiquehf extends \yii\db\ActiveRecord
     {
         return [
             'ID' => 'ID',
-            'idVisiteur' => 'Id Visiteur',
-            'date' => 'Date',
-            'Libellé' => 'Libellé',
-            'Montant' => 'Montant (en €)',
-            'Justificatif' => 'Justificatif',
+            'Date' => 'Date',
+            'idVisiteur' => 'Nom',
+            'idEtat' => 'Etat',
         ];
+    }
+
+    /**
+     * Gets query for [[IdEtat0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdEtat0()
+    {
+        return $this->hasOne(Etat::class, ['id' => 'idEtat']);
     }
 
     /**

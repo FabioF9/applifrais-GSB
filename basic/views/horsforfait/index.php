@@ -83,9 +83,13 @@ $this->title = 'Vos frais hors forfait du mois de ' . $mois;
         $totalRembourser = $dataProvider->query->sum('Montant');
         ?>
 
-        <div class="total-rembourser">
-            <h4>Total hors forfait : <?= $totalRembourser ?> €</h4>
-</div>
+            <div class="total-rembourser2">
+                <?php if ($totalRembourser == 0) : ?>
+                    <h5>Total hors forfait : 0€</h5>
+                <?php else : ?>
+                    <h5>Total hors forfait : <?= $totalRembourser ?> €</h5>
+                <?php endif; ?>
+            </div>
     </div>
 
 

@@ -7,6 +7,8 @@ use yii\grid\GridView;
 use yii\grid\ActionColumn;
 use app\models\Historiqueff;
 use app\models\Historiquehf;
+use app\models\Fichefrais;
+use app\models\Etat;
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -98,6 +100,22 @@ $this->title = 'Historique de vos frais';
     <br/>
     
     <?php if ($selectedDate !== null) : ?>
+    <?php
+    if (!Yii::$app->user->isGuest) {
+        $userId = Yii::$app->user->id;
+    }
+    $selectedDateFormatted = date('Y-m', strtotime($selectedDate));
+    // Récupérer la fiche de frais correspondante
+    $query = FicheFrais::find()->where(['LIKE', 'Date', $selectedDateFormatted . '%', false])->andWhere(['idVisiteur' => $userId]);
+    $ficheFrais = $query->one();?>
+
+    <?php if ($ficheFrais !== null) : ?>
+        <?php $etatFicheFrais = $ficheFrais->idEtat0->libelle; ?>
+        <div class="etat-fiche-frais">
+            <h4>État de la fiche : <?= Html::encode($etatFicheFrais) ?></h4>
+        </div>
+    <?php endif; ?>
+        
         <div id="print-content">
         <div class="border border-info rounded-4">
             <div class="padding">
@@ -137,11 +155,11 @@ $this->title = 'Historique de vos frais';
                 $totalGlobalRembourser += $totalRembourser;
                 ?>
 
-                <div class="total-rembourser">
+                <div class="total-rembourser3">
                     <?php if ($totalRembourser == 0) : ?>
-                        <h4>Total hors forfait: 0€</h4>
+                        <h5>Total hors forfait: 0€</h5>
                     <?php else : ?>
-                        <h4>Total hors forfait : <?= $totalRembourser ?> €</h4>
+                        <h5>Total hors forfait : <?= $totalRembourser ?> €</h5>
                     <?php endif; ?>
                 </div>
             </div>
@@ -193,11 +211,11 @@ $this->title = 'Historique de vos frais';
             $totalGlobalRembourser += $totalRembourser;
             ?>
 
-            <div class="total-rembourser">
+            <div class="total-rembourser4">
                 <?php if ($totalRembourser == 0) : ?>
-                    <h4>Total des frais forfaitisés : 0€</h4>
+                    <h5>Total des frais forfaitisés : 0€</h5>
                 <?php else : ?>
-                    <h4>Total des frais forfaitisés : <?= $totalRembourser ?> €</h4>
+                    <h5>Total des frais forfaitisés : <?= $totalRembourser ?> €</h5>
                 <?php endif; ?>
             </div>
         </div>

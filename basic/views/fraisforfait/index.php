@@ -58,7 +58,7 @@ $this->title = 'Vos frais forfaitisés du mois de ' . $mois ;
                     return $model->Montant;
                 },
             ],
-            'date',
+            // 'date',
             [
                 'class' => ActionColumn::className(),
                 'contentOptions' => ['style' => 'width: 6%;'],
@@ -76,9 +76,9 @@ $this->title = 'Vos frais forfaitisés du mois de ' . $mois ;
 
             <div class="total-rembourser">
                 <?php if ($totalRembourser == 0) : ?>
-                    <h4>Total des frais forfaitisés : 0€</h4>
+                    <h5>Total des frais forfaitisés : 0€</h5>
                 <?php else : ?>
-                    <h4>Total des frais forfaitisés : <?= $totalRembourser ?> €</h4>
+                    <h5>Total des frais forfaitisés : <?= $totalRembourser ?> €</h5>
                 <?php endif; ?>
             </div>
     </div>

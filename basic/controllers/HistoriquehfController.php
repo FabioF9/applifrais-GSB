@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\Historiqueff;
 use app\models\Historiquehf;
+use app\models\Fichefrais;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 
@@ -38,11 +39,11 @@ class HistoriquehfController extends Controller
      *
      * @return string
      */
-    public function actionIndex($date = null)
+    public function actionIndex($idVisiteur = null, $date = null)
     {
         if (!Yii::$app->user->isGuest) {
             $userId = Yii::$app->user->id;
-        }
+        
         
         $query1 = Historiquehf::find()
             ->where(['idVisiteur' => $userId])
@@ -81,9 +82,11 @@ class HistoriquehfController extends Controller
             // $query2->andWhere(['between', 'YEAR(date)', $startYear, $endYear])
             //     ->andWhere(['between', 'MONTH(date)', $startMonth, $endMonth]);
             $query1->where(['YEAR(date)'=>$startYear])
-                   ->andWhere(['MONTH(date)'=>$startMonth]);
+                   ->andWhere(['MONTH(date)'=>$startMonth])
+                   ->andWhere(['idVisiteur' => $userId]);
             $query2->where(['YEAR(date)'=>$startYear])
-            ->andWhere(['MONTH(date)'=>$startMonth]);
+            ->andWhere(['MONTH(date)'=>$startMonth])
+            ->andWhere(['idVisiteur' => $userId]);
         }
     
         $dataProvider1 = new ActiveDataProvider([
@@ -105,6 +108,7 @@ class HistoriquehfController extends Controller
             'dataProvider3' => $dataProvider3,
         ]);
     }
+}
     
 
     /**

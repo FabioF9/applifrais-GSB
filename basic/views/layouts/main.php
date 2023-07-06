@@ -49,6 +49,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         $menuItems[] = ['label' => 'Hors Forfait', 'url' => ['/horsforfait/index']];
         $menuItems[] = ['label' => 'Frais Forfait', 'url' => ['/fraisforfait/index']];
         $menuItems[] = ['label' => 'Historique', 'url' => ['/historiquehf/index']];
+        $userType = Yii::$app->user->identity->user_type;
+        if ($userType === 'C') {
+            $menuItems[] = ['label' => 'Visiteur', 'url' => ['/visiteur/index']];
+            $menuItems[] = ['label' => 'Fiche', 'url' => ['/fichefrais/index']];
+        }
         // $menuItems[] = ['label' => 'Historique FF', 'url' => ['/historiqueff/index']];
         $menuItems[] = '<li class="nav-item">'
                         . Html::beginForm(['/site/logout'])

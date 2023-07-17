@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Cartegrise;
+use app\models\Fraiskilometrique;
 
 /** @var yii\web\View $this */
 /** @var app\models\Visiteur $model */
@@ -18,23 +19,33 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'idfkm',
-            [
-                'attribute' => 'Carte grise',
-                'value' => function ($model) {
-                    $carteGrise = Cartegrise::findOne(['idVisiteur' => $model->id]);
-                    if ($carteGrise !== null) {
-                        $filePath = Yii::getAlias('@web/') . $carteGrise->Chemin;
-                        return Html::a('Voir la carte grise', $filePath, ['target' => '_blank']);
-                    } else {
-                        return 'Non disponible';
-                    }
-                },
-                'format' => 'raw',
-            ],
+    'model' => $model,
+    'attributes' => [
+        [
+            'attribute' => 'CV',
+            'value' => function ($model) {
+                $fraiskilometrique = Fraiskilometrique::findOne(['ID' => $model->idfkm]);
+                if ($fraiskilometrique !== null) {
+                    return $fraiskilometrique->CV;
+                } else {
+                    return 'Non disponible';
+                }
+            },
         ],
-    ]) ?>
+        [
+            'attribute' => 'Carte grise',
+            'value' => function ($model) {
+                $carteGrise = Cartegrise::findOne(['idVisiteur' => $model->id]);
+                if ($carteGrise !== null) {
+                    $filePath = Yii::getAlias('@web/') . $carteGrise->Chemin;
+                    return Html::a('Voir la carte grise', $filePath, ['target' => '_blank']);
+                } else {
+                    return 'Non disponible';
+                }
+            },
+            'format' => 'raw',
+        ],
+    ],
+]) ?>
 
 </div>

@@ -49,7 +49,12 @@ $this->title = 'Vos frais forfaitisés du mois de ' . $mois ;
         'dataProvider' => $dataProvider,
         'columns' => [
             
-            'idFraisForfait',
+            [
+                'attribute' => 'Type',
+                'value' => function ($model) {
+                    return  $model->baremeforfait->libelle;
+                },
+            ],
             'quantite',
             [
                 'attribute' => 'Montant',

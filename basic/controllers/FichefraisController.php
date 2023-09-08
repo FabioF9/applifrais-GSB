@@ -3,12 +3,14 @@
 namespace app\controllers;
 
 use Yii;
+use yii\db\Expression;
 use yii\web\Controller;
 use app\models\Fichefrais;
 use yii\filters\VerbFilter;
 use app\models\Historiqueff;
 use app\models\Historiquehf;
 use yii\filters\AccessControl;
+use app\models\FichefraisSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 
@@ -55,6 +57,15 @@ class FichefraisController extends Controller
      */
     public function actionIndex()
     {
+        $monthsAndYears = Fichefrais::find()
+        ->select([new Expression('DATE_FORMAT(Date, "%m-%Y") AS Date')])
+        ->distinct()
+        ->orderBy(['Date' => SORT_DESC])
+        ->asArray()
+        ->all();
+
+        $searchModel = new FichefraisSearch();
+        $searchModel->Date = '';
         $dataProvider = new ActiveDataProvider([
             'query' => Fichefrais::find(),
             /*
@@ -65,12 +76,15 @@ class FichefraisController extends Controller
             'sort' => [
                 'defaultOrder' => [
                     'Date' => SORT_DESC,
+                    'ID'=> SORT_DESC,
                 ]
             ],
         ]);
-
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'monthsAndYears' => $monthsAndYears,
         ]);
     }
 

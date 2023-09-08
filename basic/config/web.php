@@ -33,6 +33,15 @@ $config = [
             // send all mails to a file by default.
             'useFileTransport' => true,
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\jui\DatePickerAsset' => [
+                    'sourcePath' => '@bower/jquery-ui',
+                    'baseUrl' => '@web',
+                    'js' => ['jquery-ui.js'],
+                ],
+            ],
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

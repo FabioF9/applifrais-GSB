@@ -2,6 +2,7 @@
 
 use app\models\Historiquehf;
 use app\models\Historiqueff;
+use app\models\Horsforfait;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -38,6 +39,19 @@ $this->title = 'Détails de la fiche de frais';
             'Libellé',
             'Montant',
             'date',
+            [
+                'attribute' => 'Justificatfif',
+                'value' => function ($model) {
+                    $carteGrise = Horsforfait::findOne(['Justificatif' => $model->Justificatif]);
+                    if ($carteGrise !== null) {
+                        $filePath = Yii::getAlias('@web/') . $carteGrise->Justificatif;
+                        return Html::a('Voir le justificatif', $filePath, ['target' => '_blank']);
+                    } else {
+                        return 'Non disponible';
+                    }
+                },
+                'format' => 'raw',
+            ],
         ],
     ]); ?>
 </div>

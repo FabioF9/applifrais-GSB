@@ -8,9 +8,10 @@ use yii\web\Controller;
 use yii\web\UploadedFile;
 use app\models\Horsforfait;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
+use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use yii\helpers\FileHelper;
 
 /**
  * HorsforfaitController implements the CRUD actions for Horsforfait model.
@@ -25,6 +26,19 @@ class HorsforfaitController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index','update','view','create'],
+                            'allow' => true,
+                            'matchCallback' => function ($rule, $action) {
+                                $user = Yii::$app->user->identity;
+                                return $user && $user->user_type === 'V';
+                            },
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

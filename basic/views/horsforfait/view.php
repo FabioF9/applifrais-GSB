@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\Horsforfait;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
@@ -23,7 +24,19 @@ $this->params['breadcrumbs'][] = ['label' => 'Horsforfaits', 'url' => ['index']]
             'date',
             'Libellé:ntext',
             'Montant',
-            'Justificatif:ntext',
+            [
+                'attribute' => 'Justificatfif',
+                'value' => function ($model) {
+                    $carteGrise = Horsforfait::findOne(['Justificatif' => $model->Justificatif]);
+                    if ($carteGrise !== null) {
+                        $filePath = Yii::getAlias('@web/') . $carteGrise->Justificatif;
+                        return Html::a('Voir le justificatif', $filePath, ['target' => '_blank']);
+                    } else {
+                        return 'Non disponible';
+                    }
+                },
+                'format' => 'raw',
+            ],
         ],
     ]) ?>
 

@@ -77,4 +77,9 @@ class Historiqueff extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Visiteur::class, ['id' => 'idVisiteur']);
     }
+
+    public function getBaremeforfait()
+    {
+        return $this->hasOne(Baremeforfait::class, ['id' => 'idFraisForfait']);
+    }
 }

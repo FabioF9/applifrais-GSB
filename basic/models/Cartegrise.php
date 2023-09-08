@@ -31,7 +31,7 @@ class Cartegrise extends \yii\db\ActiveRecord
         return [
             [['Chemin'], 'string'],
             [['Chemin'], 'file', 'extensions' => ['png', 'jpeg', 'jpg', 'pdf']],
-            [['idVisiteur'], 'required'],
+            [['idVisiteur','Chemin'], 'required'],
             [['idVisiteur'], 'string', 'max' => 4],
             [['idVisiteur'], 'exist', 'skipOnError' => true, 'targetClass' => Visiteur::class, 'targetAttribute' => ['idVisiteur' => 'id']],
         ];

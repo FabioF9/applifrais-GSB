@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\Historiqueff;
+use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 
@@ -22,6 +23,19 @@ class HistoriqueffController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index','update','view'],
+                            'allow' => true,
+                            'matchCallback' => function ($rule, $action) {
+                                $user = Yii::$app->user->identity;
+                                return $user && $user->user_type === 'V';
+                            },
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

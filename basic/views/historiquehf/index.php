@@ -8,6 +8,8 @@ use yii\grid\ActionColumn;
 use app\models\Historiqueff;
 use app\models\Historiquehf;
 use app\models\Fichefrais;
+use app\models\Fraisforfait;
+use app\models\Baremeforfait;
 use app\models\Etat;
 
 /** @var yii\web\View $this */
@@ -178,8 +180,11 @@ $this->title = 'Historique de vos frais';
                 'dataProvider' => $dataProvider2,
                 'columns' => [
                     [
-                        'attribute' => 'idFraisForfait',
+                        'attribute' => 'Type',
                         'contentOptions' => ['style' => 'width: 40%;'],
+                        'value' => function ($model) {
+                            return  $model->baremeforfait->libelle;
+                        },
                     ],
                     [
                         'attribute' => 'quantite',
@@ -194,14 +199,14 @@ $this->title = 'Historique de vos frais';
                         },
                     ],
                     'date',
-                    [
-                        'class' => ActionColumn::className(),
-                        'contentOptions' => ['style' => 'width: 5%;'],
-                        'template' => '{view}',
-                        'urlCreator' => function ($action, Historiqueff $model, $key, $index, $column) {
-                            return Url::toRoute(['historiqueff/view', 'ID' => $model->ID]);
-                        }
-                    ],
+                    // [
+                    //     'class' => ActionColumn::className(),
+                    //     'contentOptions' => ['style' => 'width: 5%;'],
+                    //     'template' => '{view}',
+                    //     'urlCreator' => function ($action, Historiqueff $model, $key, $index, $column) {
+                    //         return Url::toRoute(['historiqueff/view', 'ID' => $model->ID]);
+                    //     }
+                    // ],
                 ],
                 'summary' => false,
             ]); ?>

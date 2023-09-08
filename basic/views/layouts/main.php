@@ -44,15 +44,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         // ['label' => 'About', 'url' => ['/site/about']],
         // ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
-    
     if (!Yii::$app->user->isGuest) {
+        $userType = Yii::$app->user->identity->user_type;
+        if ($userType === 'V'){
         $menuItems[] = ['label' => 'Hors Forfait', 'url' => ['/horsforfait/index']];
         $menuItems[] = ['label' => 'Frais Forfait', 'url' => ['/fraisforfait/index']];
         $menuItems[] = ['label' => 'Historique', 'url' => ['/historiquehf/index']];
-        $userType = Yii::$app->user->identity->user_type;
+        }
         if ($userType === 'C') {
-            $menuItems[] = ['label' => 'Visiteur', 'url' => ['/visiteur/index']];
-            $menuItems[] = ['label' => 'Fiche', 'url' => ['/fichefrais/index']];
+            $menuItems[] = ['label' => 'Carte visiteur', 'url' => ['/visiteur/index']];
+            $menuItems[] = ['label' => 'Fiche visiteur', 'url' => ['/fichefrais/index']];
         }
         // $menuItems[] = ['label' => 'Historique FF', 'url' => ['/historiqueff/index']];
         $menuItems[] = '<li class="nav-item">'

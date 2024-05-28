@@ -28,11 +28,11 @@ class FraisforfaitController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index','update','view','create'],
+                            'actions' => ['index', 'update', 'view', 'create', 'delete'],
                             'allow' => true,
                             'matchCallback' => function ($rule, $action) {
                                 $user = Yii::$app->user->identity;
-                                return $user && $user->user_type === 'V';
+                                return $user && $user->user_type == 'V';
                             },
                         ],
                     ],
